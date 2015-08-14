@@ -42,6 +42,11 @@ namespace Cake.Common.Tools.DupFinder
                 throw new ArgumentNullException("settings");
             }
 
+            if (projects == null)
+            {
+                throw new ArgumentNullException("projects");
+            }
+
             Run(settings, GetArgument(settings, projects));
         }
 
