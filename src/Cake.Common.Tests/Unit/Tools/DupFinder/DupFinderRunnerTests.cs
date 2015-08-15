@@ -112,7 +112,7 @@ namespace Cake.Common.Tests.Unit.Tools.DupFinder
                 fixture.ProcessRunner.Received(1).Start(
                     Arg.Any<FilePath>(),
                     Arg.Any<ProcessSettings>());
-                Assert.Equal("\"/output:/Working/build/dupfinder.xml\" \"/Working/Test.sln\"", fixture.ProcessArguments);
+                Assert.Equal("\"/output=/Working/build/dupfinder.xml\" \"/Working/Test.sln\"", fixture.ProcessArguments);
             }
         }
 

@@ -99,7 +99,7 @@ namespace Cake.Common.Tools.DupFinder
             }
 
             var runner = new DupFinderRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
-            runner.Run(pattern, new DupFinderSettings());
+            runner.Run(pattern, settings);
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Cake.Common.Tools.DupFinder
 
             if (settings.OutputFile != null)
             {
-                builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/output:{0}",
+                builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/output={0}",
                     settings.OutputFile.MakeAbsolute(_environment).FullPath));
             }
 
