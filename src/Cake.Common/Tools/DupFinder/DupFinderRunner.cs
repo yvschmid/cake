@@ -57,6 +57,10 @@ namespace Cake.Common.Tools.DupFinder
         /// <param name="settings">The settings.</param>
         public void Run(string pattern, DupFinderSettings settings)
         {
+            if (pattern == null)
+            {
+                throw new ArgumentNullException("pattern");
+            }
             var sourceFiles = _globber.Match(pattern).OfType<FilePath>();
 
             Run(sourceFiles, settings);
@@ -66,8 +70,11 @@ namespace Cake.Common.Tools.DupFinder
         {
             var builder = new ProcessArgumentBuilder();
 
-            builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/output:{0}",
-                settings.OutputFile.MakeAbsolute(_environment).FullPath));
+            if (settings.OutputFile != null)
+            {
+                builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/output:{0}",
+                    settings.OutputFile.MakeAbsolute(_environment).FullPath));
+            }
 
             foreach (var file in files)
             {
