@@ -97,6 +97,14 @@ Task("Run-Unit-Tests")
     });
 });
 
+Task("Dup-Finder")
+	.IsDependentOn("Build")
+	.Does(() => 
+{
+	DupFinder(new FilePath("./src/Cake.sln"), new DupFinderSettings {
+		OutputFile = buildDir + File("dupfinder.xml")
+	});
+});
 
 Task("Copy-Files")
     .IsDependentOn("Run-Unit-Tests")
@@ -195,7 +203,8 @@ Task("Package")
     .IsDependentOn("Create-NuGet-Packages");
 
 Task("Default")
-    .IsDependentOn("Package");
+    .IsDependentOn("Package")
+	.IsDependentOn("Dup-Finder");
 
 Task("AppVeyor")
     .IsDependentOn("Update-AppVeyor-Build-Number")
