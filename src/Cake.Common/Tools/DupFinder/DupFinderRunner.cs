@@ -69,7 +69,7 @@ namespace Cake.Common.Tools.DupFinder
         /// <summary>
         /// Analyses according to the specified config file
         /// </summary>
-        /// <param name="configFile"></param>
+        /// <param name="configFile">The config file.</param>
         public void RunFromConfig(FilePath configFile)
         {
             if (configFile == null)
@@ -93,10 +93,94 @@ namespace Cake.Common.Tools.DupFinder
         {
             var builder = new ProcessArgumentBuilder();
 
+            if (settings.Debug)
+            {
+                builder.Append("/debug");
+            }
+
+            if (settings.DiscardCost != null)
+            {
+                builder.Append(string.Format(CultureInfo.InvariantCulture, "/discard-cost={0}", settings.DiscardCost));
+            }
+
+            if (settings.DiscardFieldsName)
+            {
+                builder.Append("/discard-fields");
+            }
+
+            if (settings.DiscardLiterals)
+            {
+                builder.Append("/discard-literals");
+            }
+
+            if (settings.DiscardLocalVariablesName)
+            {
+                builder.Append("/discard-local-vars");
+            }
+
+            if (settings.DiscardTypes)
+            {
+                builder.Append("/discard-types");
+            }
+
+            if (settings.IdlePriority)
+            {
+                builder.Append("/idle-priority");
+            }
+
+            if (settings.ExcludeFilesByStartingCommentSubstring != null &&
+                settings.ExcludeFilesByStartingCommentSubstring.Any())
+            {
+                var joined = string.Join(";", settings.ExcludeFilesByStartingCommentSubstring);
+                builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/exclude-by-comment={0}", joined));
+            }
+
+            if (settings.ExcludeCodeRegionsByNameSubstring != null && settings.ExcludeCodeRegionsByNameSubstring.Any())
+            {
+                var joined = string.Join(";", settings.ExcludeCodeRegionsByNameSubstring);
+                builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/exclude-code-regions={0}", joined));
+            }
+
+            if (settings.ExcludePattern != null && settings.ExcludePattern.Any())
+            {
+                var joined = string.Join(";", settings.ExcludePattern);
+                builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/exclude={0}", joined));
+            }
+
+            if (settings.MsBuildProperties != null)
+            {
+                foreach (var property in settings.MsBuildProperties)
+                {
+                    builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/properties:{0}={1}", property.Key,
+                        property.Value));
+                }
+            }
+
+            if (settings.NormalizeTypes)
+            {
+                builder.Append("/normalize-types");
+            }
+
             if (settings.OutputFile != null)
             {
                 builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/output={0}",
                     settings.OutputFile.MakeAbsolute(_environment).FullPath));
+            }
+
+            if (settings.CachesHome != null)
+            {
+                builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/caches-home={0}",
+                    settings.CachesHome.MakeAbsolute(_environment).FullPath));
+            }
+
+            if (settings.ShowStats)
+            {
+                builder.Append("/show-stats");
+            }
+
+            if (settings.ShowText)
+            {
+                builder.Append("/show-text");
             }
 
             foreach (var file in files)
