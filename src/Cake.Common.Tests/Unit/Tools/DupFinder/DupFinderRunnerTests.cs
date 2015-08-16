@@ -23,7 +23,7 @@ namespace Cake.Common.Tests.Unit.Tools.DupFinder
                 var result = Record.Exception(() => runner.Run((IEnumerable<FilePath>)null, new DupFinderSettings()));
 
                 // Then
-                Assert.IsArgumentNullException(result, "projects");
+                Assert.IsArgumentNullException(result, "files");
             }
 
             [Fact]

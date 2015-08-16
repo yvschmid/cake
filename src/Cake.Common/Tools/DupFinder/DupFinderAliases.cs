@@ -7,59 +7,61 @@ using Cake.Core.IO;
 namespace Cake.Common.Tools.DupFinder
 {
     /// <summary>
-    ///  Contain's functionality related to Resharper's duplication finder
+    ///  Contains functionality related to ReSharper's duplication finder
     /// </summary>
     [CakeAliasCategory("ReSharper")]
     public static class DupFinderAliases
     {
         /// <summary>
-        /// Analyses the specified solution/project with Resharper's DupFinder.
+        /// Analyses the specified file with ReSharper's DupFinder.
+        /// The file can either be a solution/project or a source file.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="solution">The solution/project.</param>
+        /// <param name="file">The file to analyze.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("DupFinder")]
-        public static void DupFinder(this ICakeContext context, FilePath solution)
+        public static void DupFinder(this ICakeContext context, FilePath file)
         {
-            DupFinder(context, new[] { solution });
+            DupFinder(context, new[] { file });
         }
 
         /// <summary>
-        /// Analyses the specified solution/project with Resharper's DupFinder,
-        /// using the specified settings.
+        /// Analyses the specified file with ReSharper's DupFinder using the specified settings.
+        /// The file can either be a solution/project or a source file.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="solution">The solution/project.</param>
+        /// <param name="file">The file to analyze.</param>
         /// <param name="settings">The settings.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("DupFinder")]
-        public static void DupFinder(this ICakeContext context, FilePath solution, DupFinderSettings settings)
+        public static void DupFinder(this ICakeContext context, FilePath file, DupFinderSettings settings)
         {
-            DupFinder(context, new[] { solution }, settings);
+            DupFinder(context, new[] { file }, settings);
         }
 
         /// <summary>
-        /// Analyses the specified projects with Resharper's DupFinder.
+        /// Analyses the specified projects with ReSharper's DupFinder.
+        /// The files can either be solutions and projects or a source files.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="projects">The projects.</param>
+        /// <param name="files">The files to analyze.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("DupFinder")]
-        public static void DupFinder(this ICakeContext context, IEnumerable<FilePath> projects)
+        public static void DupFinder(this ICakeContext context, IEnumerable<FilePath> files)
         {
-            DupFinder(context, projects, new DupFinderSettings());
+            DupFinder(context, files, new DupFinderSettings());
         }
 
         /// <summary>
-        /// Analyses the specified projects with Resharper's DupFinder,
-        /// using the specified settings.
+        /// Analyses the specified projects with ReSharper's DupFinder using the specified settings.
+        /// The files can either be solutions and projects or a source files.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="projects">The projects.</param>
+        /// <param name="files">The files to analyze.</param>
         /// <param name="settings">The settings.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("DupFinder")]
-        public static void DupFinder(this ICakeContext context, IEnumerable<FilePath> projects, DupFinderSettings settings)
+        public static void DupFinder(this ICakeContext context, IEnumerable<FilePath> files, DupFinderSettings settings)
         {
             if (context == null)
             {
@@ -67,11 +69,11 @@ namespace Cake.Common.Tools.DupFinder
             }
 
             var runner = new DupFinderRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
-            runner.Run(projects, settings);
+            runner.Run(files, settings);
         }
 
         /// <summary>
-        /// Analyses all files matching the specified pattern with Resharper's DupFinder.
+        /// Analyses all files matching the specified pattern with ReSharper's DupFinder.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="pattern">The pattern.</param>
@@ -83,7 +85,7 @@ namespace Cake.Common.Tools.DupFinder
         }
 
         /// <summary>
-        /// Analyses all files matching the specified pattern with Resharper's DupFinder,
+        /// Analyses all files matching the specified pattern with ReSharper's DupFinder,
         /// using the specified settings.
         /// </summary>
         /// <param name="context">The context.</param>
@@ -103,7 +105,7 @@ namespace Cake.Common.Tools.DupFinder
         }
 
         /// <summary>
-        /// Analyses according to the provided config file.
+        /// Runs ReSharper's DupFinder using the provided config file.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="configFile">The config file.</param>

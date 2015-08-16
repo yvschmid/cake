@@ -31,23 +31,23 @@ namespace Cake.Common.Tools.DupFinder
         }
 
         /// <summary>
-        /// Analyses the specified projects using the specified settings.
+        /// Analyses the specified files using the specified settings.
         /// </summary>
-        /// <param name="projects">The projects.</param>
+        /// <param name="files">The files.</param>
         /// <param name="settings">The settings.</param>
-        public void Run(IEnumerable<FilePath> projects, DupFinderSettings settings)
+        public void Run(IEnumerable<FilePath> files, DupFinderSettings settings)
         {
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
 
-            if (projects == null)
+            if (files == null)
             {
-                throw new ArgumentNullException("projects");
+                throw new ArgumentNullException("files");
             }
 
-            Run(settings, GetArgument(settings, projects));
+            Run(settings, GetArgument(settings, files));
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Cake.Common.Tools.DupFinder
         }
 
         /// <summary>
-        /// Analyses according to the specified config file
+        /// Runs ReSharper's DupFinder using the provided config file.
         /// </summary>
         /// <param name="configFile">The config file.</param>
         public void RunFromConfig(FilePath configFile)
