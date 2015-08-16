@@ -132,5 +132,39 @@ namespace Cake.Common.Tests.Unit.Tools.DupFinder
                 Assert.IsArgumentNullException(result, "pattern");
             }
         }
+
+        public sealed class TheRunFromConfigMethod
+        {
+            [Fact]
+            public void Should_Throw_If_Config_File_Is_Null()
+            {
+                // Given
+                var fixture = new DupFinderRunnerFixture();
+                var runner = fixture.CreateRunner();
+
+                // When
+                var result = Record.Exception(() => runner.RunFromConfig((FilePath)null));
+
+                // Then
+                Assert.IsArgumentNullException(result, "configFile");
+            }
+
+            [Fact]
+            public void Should_Use_Provided_Config_File()
+            {
+                // Given
+                var fixture = new DupFinderRunnerFixture();
+                var runner = fixture.CreateRunner();
+
+                // When
+                runner.RunFromConfig(FilePath.FromString("config.xml"));
+
+                // Then
+                fixture.ProcessRunner.Received(1).Start(
+                    Arg.Any<FilePath>(),
+                    Arg.Any<ProcessSettings>());
+                Assert.Equal("\"/config=/Working/config.xml\"", fixture.ProcessArguments);
+            }
+        }
     }
 }

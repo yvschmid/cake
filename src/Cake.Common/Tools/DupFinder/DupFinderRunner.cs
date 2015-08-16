@@ -66,6 +66,29 @@ namespace Cake.Common.Tools.DupFinder
             Run(sourceFiles, settings);
         }
 
+        /// <summary>
+        /// Analyses according to the specified config file
+        /// </summary>
+        /// <param name="configFile"></param>
+        public void RunFromConfig(FilePath configFile)
+        {
+            if (configFile == null)
+            {
+                throw new ArgumentNullException("configFile");
+            }
+
+            Run(new DupFinderSettings(), GetConfigArgument(configFile));
+        }
+
+        private ProcessArgumentBuilder GetConfigArgument(FilePath configFile)
+        {
+            var builder = new ProcessArgumentBuilder();
+            builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "/config={0}",
+                configFile.MakeAbsolute(_environment).FullPath));
+
+            return builder;
+        }
+
         private ProcessArgumentBuilder GetArgument(DupFinderSettings settings, IEnumerable<FilePath> files)
         {
             var builder = new ProcessArgumentBuilder();

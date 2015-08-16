@@ -101,5 +101,21 @@ namespace Cake.Common.Tools.DupFinder
             var runner = new DupFinderRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
             runner.Run(pattern, settings);
         }
+
+        /// <summary>
+        /// Analyses according to the provided config file.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="configFile">The config file.</param>
+        public static void DupFinderFromConfig(this ICakeContext context, FilePath configFile)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+
+            var runner = new DupFinderRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
+            runner.RunFromConfig(configFile);
+        }
     }
 }
