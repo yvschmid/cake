@@ -7,14 +7,11 @@ namespace Cake.Common.Tools.ReportGenerator
     public sealed class ReportGeneratorSettings
     {
         /*
-    [["]-historydir:<history directory>["]]
     [["]-assemblyfilters:<(+|-)filter>[;<(+|-)filter>][;<(+|-)filter>]["]]
     [["]-classfilters:<(+|-)filter>[;<(+|-)filter>][;<(+|-)filter>]["]]
     [["]-verbosity:<Verbose|Info|Error>["]]
 
 Explanations:
-   History directory: Optional directory for storing persistent coverage information.
-                      Can be used in future reports to show coverage evolution.
    Assembly Filters:  Optional list of assemblies that should be included or excluded in the report.
    Class Filters:     Optional list of classes that should be included or excluded in the report.
                       Exclusion filters take precedence over inclusion filters.
@@ -47,5 +44,11 @@ d.*"
         /// The source files are used if coverage report contains classes without path information.
         /// </summary>
         public DirectoryPath[] SourceDirectories { get; set; }
+
+        /// <summary>
+        /// Gets or sets the directory for storing persistent coverage information.
+        /// Can be used in future reports to show coverage evolution.
+        /// </summary>
+        public DirectoryPath HistoryDirectory { get; set; }
     }
 }

@@ -70,6 +70,11 @@ namespace Cake.Common.Tools.ReportGenerator
                 AppendQuoted(builder, "sourcedirs", joined);
             }
 
+            if (settings.HistoryDirectory != null)
+            {
+                AppendQuoted(builder, "historydir", settings.HistoryDirectory.MakeAbsolute(_environment).FullPath);
+            }
+
             return builder;
         }
 
