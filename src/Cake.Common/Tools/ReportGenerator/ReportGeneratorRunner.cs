@@ -1,0 +1,87 @@
+﻿using Cake.Core;
+using Cake.Core.IO;
+using Cake.Core.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+namespace Cake.Common.Tools.ReportGenerator
+{
+    public sealed class ReportGeneratorRunner : Tool<ReportGeneratorSettings>
+    {
+        private readonly ICakeEnvironment _environment;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReportGeneratorRunner"/> class.
+        /// </summary>
+        /// <param name="fileSystem">The file system.</param>
+        /// <param name="environment">The environment.</param>
+        /// <param name="processRunner">The process runner.</param>
+        /// <param name="globber">The globber.</param>
+        public ReportGeneratorRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IGlobber globber) : base(fileSystem, environment, processRunner, globber)
+        {
+            _environment = environment;
+        }
+
+        public void Run(IEnumerable<FilePath> reports, DirectoryPath targetDir, ReportGeneratorSettings settings)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException("settings");
+            }
+
+            if (reports == null)
+            {
+                throw new ArgumentNullException("reports");
+            }
+
+            if (!reports.Any())
+            {
+                throw new ArgumentException("reports must not be empty", "reports");
+            }
+
+            if (targetDir == null)
+            {
+                throw new ArgumentNullException("targetDir");
+            }
+
+            Run(settings, GetArgument(settings, reports, targetDir));
+        }
+
+        private ProcessArgumentBuilder GetArgument(ReportGeneratorSettings settings, IEnumerable<FilePath> reports, DirectoryPath targetDir)
+        {
+            var builder = new ProcessArgumentBuilder();
+
+            var joinedReports = string.Join(";", reports.Select((r) => r.MakeAbsolute(_environment).FullPath));
+            AppendQuoted(builder, "reports", joinedReports);
+
+            AppendQuoted(builder, "targetdir", targetDir.MakeAbsolute(_environment).FullPath);
+
+            return builder;
+        }
+
+        /// <summary>
+        /// Gets the name of the tool.
+        /// </summary>
+        /// <returns>The name of the tool.</returns>
+        protected override string GetToolName()
+        {
+            return "ReportGenerator";
+        }
+
+        /// <summary>
+        /// Gets the possible names of the tool executable.
+        /// </summary>
+        /// <returns>The tool executable name.</returns>
+        protected override IEnumerable<string> GetToolExecutableNames()
+        {
+            return new[] { "ReportGenerator.exe" };
+        }
+
+        private void AppendQuoted(ProcessArgumentBuilder builder, string key, string value)
+        {
+            builder.AppendQuoted(string.Format(CultureInfo.InvariantCulture, "-{0}:{1}", key, value));
+        }
+    }
+}
