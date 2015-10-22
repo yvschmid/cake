@@ -1,7 +1,7 @@
 ﻿namespace Cake.Common.Tools.ReportGenerator
 {
     /// <summary>
-    /// Represents ReportGenerator's ouput formats
+    /// Represents ReportGenerator's output formats
     /// </summary>
     public enum ReportType
     {

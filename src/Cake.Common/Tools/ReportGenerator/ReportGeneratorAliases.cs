@@ -1,23 +1,23 @@
-﻿using Cake.Core;
+﻿using System;
+using System.Collections.Generic;
+using Cake.Core;
 using Cake.Core.Annotations;
 using Cake.Core.IO;
-using System;
-using System.Collections.Generic;
 
 namespace Cake.Common.Tools.ReportGenerator
 {
     /// <summary>
-    /// Contains functionality related to ReportGenerator
+    /// Contains functionality related to ReportGenerator.
     /// </summary>
     [CakeAliasCategory("ReportGenerator")]
     public static class ReportGeneratorAliases
     {
         /// <summary>
-        /// Generats a html report from the specified xml report in the specified target directory.
+        /// Converts the specified coverage report into human readable form.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="report">The xml report.</param>
-        /// <param name="targetDir">The target directory.</param>
+        /// <param name="report">The coverage report.</param>
+        /// <param name="targetDir">The output directory.</param>
         [CakeMethodAlias]
         public static void ReportGenerator(this ICakeContext context, FilePath report, DirectoryPath targetDir)
         {
@@ -25,8 +25,12 @@ namespace Cake.Common.Tools.ReportGenerator
         }
 
         /// <summary>
-        ///
+        /// Converts the specified coverage report into human readable form using the specified settings.
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="report">The coverage report.</param>
+        /// <param name="targetDir">The output directory.</param>
+        /// <param name="settings">The settings.</param>
         [CakeMethodAlias]
         public static void ReportGenerator(this ICakeContext context, FilePath report, DirectoryPath targetDir, ReportGeneratorSettings settings)
         {
@@ -34,8 +38,11 @@ namespace Cake.Common.Tools.ReportGenerator
         }
 
         /// <summary>
-        ///
+        /// Converts the specified coverage reports into human readable form.
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="reports">The coverage reports.</param>
+        /// <param name="targetDir">The output directory.</param>>
         [CakeMethodAlias]
         public static void ReportGenerator(this ICakeContext context, IEnumerable<FilePath> reports, DirectoryPath targetDir)
         {
@@ -43,8 +50,12 @@ namespace Cake.Common.Tools.ReportGenerator
         }
 
         /// <summary>
-        ///
+        /// Converts the specified coverage reports into human readable form using the specified settings.
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="reports">The coverage reports.</param>
+        /// <param name="targetDir">The output directory.</param>
+        /// <param name="settings">The settings.</param>>
         [CakeMethodAlias]
         public static void ReportGenerator(this ICakeContext context, IEnumerable<FilePath> reports, DirectoryPath targetDir, ReportGeneratorSettings settings)
         {

@@ -1,13 +1,16 @@
-﻿using Cake.Core;
-using Cake.Core.IO;
-using Cake.Core.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Cake.Core;
+using Cake.Core.IO;
+using Cake.Core.Utilities;
 
 namespace Cake.Common.Tools.ReportGenerator
 {
+    /// <summary>
+    /// ReportGenerator runner.
+    /// </summary>
     public sealed class ReportGeneratorRunner : Tool<ReportGeneratorSettings>
     {
         private readonly ICakeEnvironment _environment;
@@ -24,6 +27,12 @@ namespace Cake.Common.Tools.ReportGenerator
             _environment = environment;
         }
 
+        /// <summary>
+        /// Converts the specified coverage reports into human readable form according to the specified settings.
+        /// </summary>
+        /// <param name="reports">The coverage reports.</param>
+        /// <param name="targetDir">The output directory.</param>
+        /// <param name="settings">The settings.</param>
         public void Run(IEnumerable<FilePath> reports, DirectoryPath targetDir, ReportGeneratorSettings settings)
         {
             if (settings == null)

@@ -3,38 +3,19 @@ using Cake.Core.IO;
 
 namespace Cake.Common.Tools.ReportGenerator
 {
+    /// <summary>
+    /// Contains settings used by <see cref="ReportGeneratorRunner"/>.
+    /// </summary>
     [CakeAliasCategory("ReportGenerator")]
     public sealed class ReportGeneratorSettings
     {
-        /*
-    [["]-verbosity:<Verbose|Info|Error>["]]
-
-Explanations:
-   Verbosity:         The verbosity level of the log messages.
-                      Values: Verbose, Info, Error
-
-Default values:
-   -reporttypes:Html
-   -assemblyfilters:+*
-   -classfilters:+*
-   -verbosity:Verbose
-
-Examples:
-   "-reports:coverage.xml" "-targetdir:C:\report"
-   "-reports:target\*\*.xml" "-targetdir:C:\report" -reporttypes:Latex;HtmlSummary
-   "-reports:coverage1.xml;coverage2.xml" "-targetdir:report"
-   "-reports:coverage.xml" "-targetdir:C:\report" -reporttypes:Latex "-sourcedirs:C:\MyProject"
-   "-reports:coverage.xml" "-targetdir:C:\report" "-sourcedirs:C:\MyProject1;C:\MyProject2" "-assemblyfilters:+Included;-Exclude
-d.*"
-        */
-
         /// <summary>
-        /// Gets or sets the list of report types which will be generated.
+        /// Gets or sets the list of coverage reports that should be parsed.
         /// </summary>
         public ReportType[] ReportTypes { get; set; }
 
         /// <summary>
-        /// Gets or sets Optional directories which contain the corresponding source code.
+        /// Gets or sets the directories which contain the corresponding source code.
         /// The source files are used if coverage report contains classes without path information.
         /// </summary>
         public DirectoryPath[] SourceDirectories { get; set; }
