@@ -44,5 +44,10 @@ Examples:
    "-reports:coverage.xml" "-targetdir:C:\report" "-sourcedirs:C:\MyProject1;C:\MyProject2" "-assemblyfilters:+Included;-Exclude
 d.*"
         */
+
+        /// <summary>
+        /// Gets or sets the list of report types which will be generated.
+        /// </summary>
+        public ReportType[] ReportTypes { get; set; }
     }
 }

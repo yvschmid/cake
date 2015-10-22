@@ -150,5 +150,29 @@ namespace Cake.Common.Tests.Unit.Tools.ReportGenerator
                 Arg.Any<ProcessSettings>());
             Assert.Equal("\"-reports:/Working/report1.xml;/Working/report2.xml\" \"-targetdir:/Working/output\"", fixture.ProcessArguments);
         }
+
+        [Fact]
+        public void Should_Set_Report_Types()
+        {
+            // Given
+            var fixture = new ReportGeneratorRunnerFixture();
+            var runner = fixture.CreateRunner();
+
+            // When
+            runner.Run(
+                new[] { FilePath.FromString("report.xml") },
+                DirectoryPath.FromString("output"),
+                new ReportGeneratorSettings()
+                {
+                    ReportTypes = new[] { ReportType.Html, ReportType.Latex }
+                }
+            );
+
+            // Then
+            fixture.ProcessRunner.Received(1).Start(
+                Arg.Any<FilePath>(),
+                Arg.Any<ProcessSettings>());
+            Assert.Equal("\"-reports:/Working/report.xml\" \"-targetdir:/Working/output\" \"-reporttypes:Html;Latex\"", fixture.ProcessArguments);
+        }
     }
 }
