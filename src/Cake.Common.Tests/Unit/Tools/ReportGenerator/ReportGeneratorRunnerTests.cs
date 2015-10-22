@@ -222,5 +222,53 @@ namespace Cake.Common.Tests.Unit.Tools.ReportGenerator
                 Arg.Any<ProcessSettings>());
             Assert.Equal("\"-reports:/Working/report.xml\" \"-targetdir:/Working/output\" \"-historydir:/Working/history\"", fixture.ProcessArguments);
         }
+
+        [Fact]
+        public void Should_Set_Assembly_Filters()
+        {
+            // Given
+            var fixture = new ReportGeneratorRunnerFixture();
+            var runner = fixture.CreateRunner();
+
+            // When
+            runner.Run(
+                new[] { FilePath.FromString("report.xml") },
+                DirectoryPath.FromString("output"),
+                new ReportGeneratorSettings()
+                {
+                    AssemblyFilters = new[] { "+Included", "-Excluded.*" }
+                }
+            );
+
+            // Then
+            fixture.ProcessRunner.Received(1).Start(
+                Arg.Any<FilePath>(),
+                Arg.Any<ProcessSettings>());
+            Assert.Equal("\"-reports:/Working/report.xml\" \"-targetdir:/Working/output\" \"-assemblyfilters:+Included;-Excluded.*\"", fixture.ProcessArguments);
+        }
+
+        [Fact]
+        public void Should_Set_Class_Filters()
+        {
+            // Given
+            var fixture = new ReportGeneratorRunnerFixture();
+            var runner = fixture.CreateRunner();
+
+            // When
+            runner.Run(
+                new[] { FilePath.FromString("report.xml") },
+                DirectoryPath.FromString("output"),
+                new ReportGeneratorSettings()
+                {
+                    ClassFilters = new[] { "+Included", "-Excluded.*" }
+                }
+            );
+
+            // Then
+            fixture.ProcessRunner.Received(1).Start(
+                Arg.Any<FilePath>(),
+                Arg.Any<ProcessSettings>());
+            Assert.Equal("\"-reports:/Working/report.xml\" \"-targetdir:/Working/output\" \"-classfilters:+Included;-Excluded.*\"", fixture.ProcessArguments);
+        }
     }
 }

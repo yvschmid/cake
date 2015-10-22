@@ -75,6 +75,18 @@ namespace Cake.Common.Tools.ReportGenerator
                 AppendQuoted(builder, "historydir", settings.HistoryDirectory.MakeAbsolute(_environment).FullPath);
             }
 
+            if (settings.AssemblyFilters != null && settings.AssemblyFilters.Any())
+            {
+                var joined = string.Join(";", settings.AssemblyFilters);
+                AppendQuoted(builder, "assemblyfilters", joined);
+            }
+
+            if (settings.ClassFilters != null && settings.ClassFilters.Any())
+            {
+                var joined = string.Join(";", settings.ClassFilters);
+                AppendQuoted(builder, "classfilters", joined);
+            }
+
             return builder;
         }
 

@@ -7,15 +7,9 @@ namespace Cake.Common.Tools.ReportGenerator
     public sealed class ReportGeneratorSettings
     {
         /*
-    [["]-assemblyfilters:<(+|-)filter>[;<(+|-)filter>][;<(+|-)filter>]["]]
-    [["]-classfilters:<(+|-)filter>[;<(+|-)filter>][;<(+|-)filter>]["]]
     [["]-verbosity:<Verbose|Info|Error>["]]
 
 Explanations:
-   Assembly Filters:  Optional list of assemblies that should be included or excluded in the report.
-   Class Filters:     Optional list of classes that should be included or excluded in the report.
-                      Exclusion filters take precedence over inclusion filters.
-                      Wildcards are allowed.
    Verbosity:         The verbosity level of the log messages.
                       Values: Verbose, Info, Error
 
@@ -50,5 +44,19 @@ d.*"
         /// Can be used in future reports to show coverage evolution.
         /// </summary>
         public DirectoryPath HistoryDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of assemblies that should be included or excluded in the report.
+        /// Exclusion filters take precedence over inclusion filters.
+        /// Wildcards are allowed.
+        /// </summary>
+        public string[] AssemblyFilters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of classes that should be included or excluded in the report.
+        /// Exclusion filters take precedence over inclusion filters.
+        /// Wildcards are allowed.
+        /// </summary>
+        public string[] ClassFilters { get; set; }
     }
 }
