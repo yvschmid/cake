@@ -13,6 +13,33 @@ namespace Cake.Common.Tools.ReportGenerator
     public static class ReportGeneratorAliases
     {
         /// <summary>
+        /// Converts the coverage report specified by the glob pattern into human readable form.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="pattern">The glob pattern.</param>
+        /// <param name="targetDir">The output directory.</param>
+        [CakeMethodAlias]
+        public static void ReportGenerator(this ICakeContext context, string pattern, DirectoryPath targetDir)
+        {
+            var reports = context.Globber.GetFiles(pattern);
+            ReportGenerator(context, reports, targetDir);
+        }
+
+        /// <summary>
+        /// Converts the coverage report specified by the glob pattern into human readable form using the specified settings.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="pattern">The glob pattern.</param>
+        /// <param name="targetDir">The output directory.</param>
+        /// <param name="settings">The settings.</param>
+        [CakeMethodAlias]
+        public static void ReportGenerator(this ICakeContext context, string pattern, DirectoryPath targetDir, ReportGeneratorSettings settings)
+        {
+            var reports = context.Globber.GetFiles(pattern);
+            ReportGenerator(context, reports, targetDir, settings);
+        }
+
+        /// <summary>
         /// Converts the specified coverage report into human readable form.
         /// </summary>
         /// <param name="context">The context.</param>
