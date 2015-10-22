@@ -87,6 +87,11 @@ namespace Cake.Common.Tools.ReportGenerator
                 AppendQuoted(builder, "classfilters", joined);
             }
 
+            if (settings.Verbosity != null)
+            {
+                AppendQuoted(builder, "verbosity", settings.Verbosity.ToString());
+            }
+
             return builder;
         }
 

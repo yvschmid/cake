@@ -225,6 +225,7 @@
     <Compile Include="Tools\ReportGenerator\ReportGeneratorRunner.cs" />
     <Compile Include="Tools\ReportGenerator\ReportGeneratorSettings.cs" />
     <Compile Include="Tools\ReportGenerator\ReportType.cs" />
+    <Compile Include="Tools\ReportGenerator\Verbosity.cs" />
     <Compile Include="Tools\Roundhouse\RecoveryMode.cs" />
     <Compile Include="Tools\Roundhouse\RoundhouseAliases.cs" />
     <Compile Include="Tools\Roundhouse\RoundhouseRunner.cs" />

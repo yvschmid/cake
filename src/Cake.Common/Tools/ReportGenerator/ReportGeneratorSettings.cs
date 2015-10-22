@@ -58,5 +58,10 @@ d.*"
         /// Wildcards are allowed.
         /// </summary>
         public string[] ClassFilters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the verbosity level of the log messages.
+        /// </summary>
+        public Verbosity? Verbosity { get; set; }
     }
 }
