@@ -64,6 +64,12 @@ namespace Cake.Common.Tools.ReportGenerator
                 AppendQuoted(builder, "reporttypes", joined);
             }
 
+            if (settings.SourceDirectories != null && settings.SourceDirectories.Any())
+            {
+                var joined = string.Join(";", settings.SourceDirectories.Select((d) => d.MakeAbsolute(_environment).FullPath));
+                AppendQuoted(builder, "sourcedirs", joined);
+            }
+
             return builder;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Cake.Core.Annotations;
+using Cake.Core.IO;
 
 namespace Cake.Common.Tools.ReportGenerator
 {
@@ -6,21 +7,12 @@ namespace Cake.Common.Tools.ReportGenerator
     public sealed class ReportGeneratorSettings
     {
         /*
-    [["]-reporttypes:<Html|HtmlSummary|...>[;<Html|HtmlSummary|...>]["]]
-    [["]-sourcedirs:<directory>[;<directory>][;<directory>]["]]
     [["]-historydir:<history directory>["]]
     [["]-assemblyfilters:<(+|-)filter>[;<(+|-)filter>][;<(+|-)filter>]["]]
     [["]-classfilters:<(+|-)filter>[;<(+|-)filter>][;<(+|-)filter>]["]]
     [["]-verbosity:<Verbose|Info|Error>["]]
 
 Explanations:
-   Targetdirectory:   The directory where the generated report should be saved.
-   Reporttypes:       The output formats and scope (separated by semicolon).
-                      Values: Badges, Html, HtmlSummary, Latex, LatexSummary, TextSummary, Xml, XmlSummary
-   SourceDirectories: Optional directories which contain the corresponding source code
-                      (separated by semicolon).
-                      The source files are used if coverage report contains classes
-                      without path information.
    History directory: Optional directory for storing persistent coverage information.
                       Can be used in future reports to show coverage evolution.
    Assembly Filters:  Optional list of assemblies that should be included or excluded in the report.
@@ -49,5 +41,11 @@ d.*"
         /// Gets or sets the list of report types which will be generated.
         /// </summary>
         public ReportType[] ReportTypes { get; set; }
+
+        /// <summary>
+        /// Gets or sets Optional directories which contain the corresponding source code.
+        /// The source files are used if coverage report contains classes without path information.
+        /// </summary>
+        public DirectoryPath[] SourceDirectories { get; set; }
     }
 }
